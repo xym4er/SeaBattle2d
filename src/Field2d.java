@@ -81,45 +81,66 @@ public class Field2d {
         if (ship.maxHealth > 0) {
             if (ship.isVert) {
                 return ((ship.positionX + ship.maxHealth > 9) || checkAroundPoint(ship.positionX, ship.positionY) || checkAroundPoint(ship.positionX + ship.maxHealth, ship.positionY));
-            } else return ((ship.positionY + ship.maxHealth > 9) || checkAroundPoint(ship.positionX, ship.positionY) || checkAroundPoint(ship.positionX, ship.positionY + ship.maxHealth));
+            } else
+                return ((ship.positionY + ship.maxHealth > 9) || checkAroundPoint(ship.positionX, ship.positionY) || checkAroundPoint(ship.positionX, ship.positionY + ship.maxHealth));
         } else {
             return (checkAroundPoint(ship.positionX, ship.positionY));
         }
     }
 
+    static void missAroundPoint(int x, int y) {
+
+        if (x > 0 || y > 0) {
+            if (cells[x - 1][y - 1] == '#') cells[x - 1][y - 1] = '@';
+        }
+        if (x > 0) {
+            if (cells[x - 1][y] == '#') cells[x - 1][y] = '@';
+        }
+        if (x > 0 || y < 9) {
+            if (cells[x - 1][y + 1] == '#') cells[x - 1][y + 1] = '@';
+        }
+        if (y < 9) {
+            if (cells[x][y - 1] == '#') cells[x][y - 1] = '@';
+        }
+        if (y > 0) {
+            if (cells[x][y + 1] == '#') cells[x][y + 1] = '@';
+        }
+        if (x < 9 || y > 0) {
+            if (cells[x + 1][y - 1] == '#') cells[x + 1][y - 1] = '@';
+        }
+        if (x < 9) {
+            if (cells[x + 1][y] == '#') cells[x + 1][y] = '@';
+        }
+        if (x < 9 && y < 9) {
+            if (cells[x + 1][y + 1] == '#') cells[x + 1][y + 1] = '@';
+        }
+    }
+
     boolean checkAroundPoint(int x, int y) {
         if (cells[x][y] == 'X') return true;
-        try {
+        if (x > 0 || y > 0) {
             if (cells[x - 1][y - 1] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
-        try {
+        if (x > 0) {
             if (cells[x - 1][y] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
-        try {
+        if (x > 0 || y < 9) {
             if (cells[x - 1][y + 1] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
-        try {
+        if (y < 9) {
             if (cells[x][y - 1] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
-        try {
+        if (y > 0) {
             if (cells[x][y + 1] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
-        try {
+        if (x < 9 || y > 0) {
             if (cells[x + 1][y - 1] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
-        try {
+        if (x < 9) {
             if (cells[x + 1][y] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
-        try {
+        if (x < 9 && y < 9) {
             if (cells[x + 1][y + 1] == 'X') return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
         }
         return false;
     }
