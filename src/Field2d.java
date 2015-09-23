@@ -1,8 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ChornyiUA on 15.09.2015.
  */
 public class Field2d {
     public static char[][] cells = new char[10][10];
+    public static List<List<Cell>> cellss = new ArrayList<>();
+
+
+
     Ship ship6 = new Ship(4);
     Ship ship1 = new Ship(3);
     Ship ship2 = new Ship(3);
@@ -15,6 +22,24 @@ public class Field2d {
     Ship ship10 = new Ship(1);
 
     void init() {
+        System.out.println("----------------------------------");
+        for (int i = 0; i <10 ; i++) {
+            cellss.add(new ArrayList<>());
+            for (int j = 0; j <10 ; j++) {
+                cellss.get(i).add(new Cell());
+            }
+        }
+
+        for (int i = 0; i <10 ; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(cellss.get(i).get(j).cell);
+            }
+            System.out.println();
+        }
+
+
+        System.out.println("----------------------------------");
+
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 cells[i][j] = '.';
@@ -118,22 +143,22 @@ public class Field2d {
 
     boolean checkAroundPoint(int x, int y) {
         if (cells[x][y] == 'X') return true;
-        if (x > 0 || y > 0) {
+        if (x > 0 && y > 0) {
             if (cells[x - 1][y - 1] == 'X') return true;
         }
         if (x > 0) {
             if (cells[x - 1][y] == 'X') return true;
         }
-        if (x > 0 || y < 9) {
+        if (x > 0 && y < 9) {
             if (cells[x - 1][y + 1] == 'X') return true;
         }
-        if (y < 9) {
+        if (y > 0) {
             if (cells[x][y - 1] == 'X') return true;
         }
-        if (y > 0) {
+        if (y < 9) {
             if (cells[x][y + 1] == 'X') return true;
         }
-        if (x < 9 || y > 0) {
+        if (x < 9 && y > 0) {
             if (cells[x + 1][y - 1] == 'X') return true;
         }
         if (x < 9) {
