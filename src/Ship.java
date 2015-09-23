@@ -17,14 +17,14 @@ public class Ship {
     }
 
     void drawShip() {
-        Field2d.cells[this.positionX][this.positionY] = 'X';
+        Field2d.cellss.get(this.positionX).get(this.positionY).cell = 'X';
         if (this.maxHealth > 0) {
             for (int i = 1; i < this.maxHealth + 1; i++) {
 
                 if (this.isVert) {
-                    Field2d.cells[this.positionX + i][this.positionY] = 'X';
+                    Field2d.cellss.get(this.positionX+i).get(this.positionY).cell = 'X';
                 } else {
-                    Field2d.cells[this.positionX][this.positionY + i] = 'X';
+                    Field2d.cellss.get(this.positionX).get(this.positionY+i).cell = 'X';
                 }
             }
         }
