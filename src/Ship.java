@@ -10,7 +10,7 @@ public class Ship {
     static int allHealth = 0;
 
     public Ship(int health) {
-        this.health = health;
+        this.health = health - 1;
         this.maxHealth = health - 1;
         allHealth = allHealth + health;
 
@@ -18,13 +18,16 @@ public class Ship {
 
     void drawShip() {
         Field2d.cellss.get(this.positionX).get(this.positionY).cell = 'X';
+        Field2d.cellss.get(this.positionX).get(this.positionY).ship = this;
         if (this.maxHealth > 0) {
             for (int i = 1; i < this.maxHealth + 1; i++) {
 
                 if (this.isVert) {
-                    Field2d.cellss.get(this.positionX+i).get(this.positionY).cell = 'X';
+                    Field2d.cellss.get(this.positionX + i).get(this.positionY).cell = 'X';
+                    Field2d.cellss.get(this.positionX + i).get(this.positionY).ship = this;
                 } else {
-                    Field2d.cellss.get(this.positionX).get(this.positionY+i).cell = 'X';
+                    Field2d.cellss.get(this.positionX).get(this.positionY + i).cell = 'X';
+                    Field2d.cellss.get(this.positionX).get(this.positionY + i).ship = this;
                 }
             }
         }

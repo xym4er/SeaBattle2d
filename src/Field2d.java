@@ -7,60 +7,29 @@ import java.util.Map;
  * Created by ChornyiUA on 15.09.2015.
  */
 public class Field2d {
-//    public static char[][] cells = new char[10][10];
     public static List<List<Cell>> cellss = new ArrayList<>();
     Map<Integer, Ship> ships = new HashMap<>();
 
-
-
-/*    Ship ship6 = new Ship(4);
-    Ship ship1 = new Ship(3);
-    Ship ship2 = new Ship(3);
-    Ship ship3 = new Ship(2);
-    Ship ship4 = new Ship(2);
-    Ship ship5 = new Ship(2);
-    Ship ship7 = new Ship(1);
-    Ship ship8 = new Ship(1);
-    Ship ship9 = new Ship(1);
-    Ship ship10 = new Ship(1);*/
-
     void init() {
-        for (int i = 0; i <10 ; i++) {
+        for (int i = 0; i < 10; i++) {
             cellss.add(new ArrayList<>());
-            for (int j = 0; j <10 ; j++) {
-                cellss.get(i).add(j,new Cell());
+            for (int j = 0; j < 10; j++) {
+                cellss.get(i).add(j, new Cell());
             }
         }
-
-/*        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                cells[i][j] = '.';
-            }
-        }*/
-        int n=1;
-        for (int i = 4; i >0 ; i--) {
-            for (int j = i; j <5 ; j++) {
+        int n = 1;
+        for (int i = 4; i > 0; i--) {
+            for (int j = i; j < 5; j++) {
                 ships.put(n, new Ship(i));
                 setShip(ships.get(n));
                 n++;
             }
         }
-
-/*        setShip(ship6);
-        setShip(ship2);
-        setShip(ship3);
-        setShip(ship4);
-        setShip(ship5);
-        setShip(ship1);
-        setShip(ship7);
-        setShip(ship8);
-        setShip(ship9);
-        setShip(ship10);*/
     }
 
     void showField() {
         System.out.println(" 0123456789           0123456789");
-        for (int i = 0; i <10 ; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.print(i);
             for (int j = 0; j < 10; j++) {
                 if (cellss.get(i).get(j).cell == 'X') System.out.print('.');
@@ -72,21 +41,6 @@ public class Field2d {
             }
             System.out.println();
         }
-
-
-/*        System.out.println(" 0123456789           0123456789");
-        for (int i = 0; i < 10; i++) {
-            System.out.print(i);
-            for (int j = 0; j < 10; j++) {
-                if (cells[i][j] == 'X') System.out.print('.');
-                else System.out.print(cells[i][j]);
-            }
-            System.out.print("          " + i);
-            for (int j = 0; j < 10; j++) {
-                System.out.print(cells[i][j]);
-            }
-            System.out.println();
-        }*/
     }
 
     void doShoot(int y, int x) {
@@ -100,10 +54,17 @@ public class Field2d {
                 System.out.println("Уже стреляли");
                 break;
             case 'X':
-                System.out.println("Попал!");
-                cellss.get(x).get(y).cell = '#';
-                missAroundPoint(x,y);
-                Ship.allHealth--;
+                if (cellss.get(x).get(y).ship.health == 0) {
+                    System.out.println("Убил!");
+                    cellss.get(x).get(y).cell = '#';
+                    cellss.get(x).get(y).ship.boooom();
+                    Ship.allHealth--;
+                } else {
+                    System.out.println("Попал!");
+                    cellss.get(x).get(y).cell = '#';
+                    cellss.get(x).get(y).ship.health--;
+                    Ship.allHealth--;
+                }
                 break;
             default:
                 System.out.println("ERROR");
@@ -133,56 +94,56 @@ public class Field2d {
     static void missAroundPoint(int x, int y) {
 
         if (x > 0 && y > 0) {
-            if (cellss.get(x-1).get(y-1).cell == '.') cellss.get(x-1).get(y-1).cell = '@';
+            if (cellss.get(x - 1).get(y - 1).cell == '.') cellss.get(x - 1).get(y - 1).cell = '@';
         }
         if (x > 0) {
-            if (cellss.get(x-1).get(y).cell == '.') cellss.get(x-1).get(y).cell = '@';
+            if (cellss.get(x - 1).get(y).cell == '.') cellss.get(x - 1).get(y).cell = '@';
         }
         if (x > 0 && y < 9) {
-            if (cellss.get(x-1).get(y+1).cell == '.') cellss.get(x-1).get(y+1).cell = '@';
+            if (cellss.get(x - 1).get(y + 1).cell == '.') cellss.get(x - 1).get(y + 1).cell = '@';
         }
         if (y > 0) {
-            if (cellss.get(x).get(y-1).cell == '.') cellss.get(x).get(y-1).cell = '@';
+            if (cellss.get(x).get(y - 1).cell == '.') cellss.get(x).get(y - 1).cell = '@';
         }
         if (y < 9) {
-            if (cellss.get(x).get(y+1).cell == '.') cellss.get(x).get(y+1).cell = '@';
+            if (cellss.get(x).get(y + 1).cell == '.') cellss.get(x).get(y + 1).cell = '@';
         }
         if (x < 9 && y > 0) {
-            if (cellss.get(x+1).get(y-1).cell == '.') cellss.get(x+1).get(y-1).cell = '@';
+            if (cellss.get(x + 1).get(y - 1).cell == '.') cellss.get(x + 1).get(y - 1).cell = '@';
         }
         if (x < 9) {
-            if (cellss.get(x+1).get(y).cell == '.') cellss.get(x+1).get(y).cell = '@';
+            if (cellss.get(x + 1).get(y).cell == '.') cellss.get(x + 1).get(y).cell = '@';
         }
         if (x < 9 && y < 9) {
-            if (cellss.get(x+1).get(y+1).cell == '.') cellss.get(x+1).get(y+1).cell = '@';
+            if (cellss.get(x + 1).get(y + 1).cell == '.') cellss.get(x + 1).get(y + 1).cell = '@';
         }
     }
 
     boolean checkAroundPoint(int x, int y) {
         if (cellss.get(x).get(y).cell == 'X') return true;
         if (x > 0 && y > 0) {
-            if (cellss.get(x-1).get(y-1).cell == 'X') return true;
+            if (cellss.get(x - 1).get(y - 1).cell == 'X') return true;
         }
         if (x > 0) {
-            if (cellss.get(x-1).get(y).cell == 'X') return true;
+            if (cellss.get(x - 1).get(y).cell == 'X') return true;
         }
         if (x > 0 && y < 9) {
-            if (cellss.get(x-1).get(y+1).cell == 'X') return true;
+            if (cellss.get(x - 1).get(y + 1).cell == 'X') return true;
         }
         if (y > 0) {
-            if (cellss.get(x).get(y-1).cell == 'X') return true;
+            if (cellss.get(x).get(y - 1).cell == 'X') return true;
         }
         if (y < 9) {
-            if (cellss.get(x).get(y+1).cell == 'X') return true;
+            if (cellss.get(x).get(y + 1).cell == 'X') return true;
         }
         if (x < 9 && y > 0) {
-            if (cellss.get(x+1).get(y-1).cell == 'X') return true;
+            if (cellss.get(x + 1).get(y - 1).cell == 'X') return true;
         }
         if (x < 9) {
-            if (cellss.get(x+1).get(y).cell == 'X') return true;
+            if (cellss.get(x + 1).get(y).cell == 'X') return true;
         }
         if (x < 9 && y < 9) {
-            if (cellss.get(x+1).get(y+1).cell == 'X') return true;
+            if (cellss.get(x + 1).get(y + 1).cell == 'X') return true;
         }
         return false;
     }
