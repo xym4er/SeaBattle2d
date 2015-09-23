@@ -28,34 +28,34 @@ public class Field2d {
     }
 
     void showField() {
-        System.out.println(" 0123456789           0123456789");
+        Window.jTextArea.setText("   0123456789           0123456789\n");
         for (int i = 0; i < 10; i++) {
-            System.out.print(i);
+            Window.jTextArea.append(i + "");
             for (int j = 0; j < 10; j++) {
-                if (cellss.get(i).get(j).cell == 'X') System.out.print('.');
-                else System.out.print(cellss.get(i).get(j).cell);
+                if (cellss.get(i).get(j).cell == 'X') Window.jTextArea.append(". ");
+                else Window.jTextArea.append(cellss.get(i).get(j).cell+" ");
             }
-            System.out.print("          " + i);
+            Window.jTextArea.append("          " + i);
             for (int j = 0; j < 10; j++) {
-                System.out.print(cellss.get(i).get(j).cell);
+                Window.jTextArea.append(cellss.get(i).get(j).cell+" ");
             }
-            System.out.println();
+            Window.jTextArea.append("\n");
         }
     }
 
     void doShoot(int y, int x) {
-        System.out.println("ваш выстрел: " + y + " - " + x);
+        Window.jTextArea.append("ваш выстрел: " + y + " - " + x+"\n");
         switch (cellss.get(x).get(y).cell) {
             case '.':
-                System.out.println("Missed");
+                Window.jTextArea.append("Missed\n");
                 cellss.get(x).get(y).cell = '@';
                 break;
             case '@':
-                System.out.println("Уже стреляли");
+                Window.jTextArea.append("Уже стреляли\n");
                 break;
             case 'X':
                 if (cellss.get(x).get(y).ship.health == 0) {
-                    System.out.println("Убил!");
+                    Window.jTextArea.append("Убил!\n");
                     cellss.get(x).get(y).cell = '#';
                     cellss.get(x).get(y).ship.boooom();
                     Ship.allHealth--;
@@ -67,7 +67,7 @@ public class Field2d {
                 }
                 break;
             default:
-                System.out.println("ERROR");
+                Window.jTextArea.append("ERROR\n");
         }
     }
 

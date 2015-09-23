@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/Field2d.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/SeaBattle.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Window.java" charset="UTF-8" />
   </component>
 </project>
