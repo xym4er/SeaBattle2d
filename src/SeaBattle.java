@@ -7,7 +7,6 @@ public class SeaBattle {
         Field2d field2d = new Field2d();
         Window window = new Window();
         Window.jTextArea.append("начало игры\n");
-
         field2d.init();
         Window.jTextArea.append("\n");
         do {
